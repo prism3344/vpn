@@ -6,8 +6,10 @@ app = Flask(__name__)
 @app.route('/proxy/<path:url>')
 def proxy(url):
     target_url = f"https://{url}" if not url.startswith('http') else url
-    
-    resp = requests.get(target_url, stream=True)
+    head = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+}
+    resp = requests.get(target_url, stream=True, headers=head)
     
 
     excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']
