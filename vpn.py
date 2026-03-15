@@ -6,16 +6,27 @@ app = Flask(__name__)
 
 
 
+
 def fetch_page(url):
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--no-sandbox",
+                "--disable-dev-shm-usage"
+            ]
+        )
+
         page = browser.new_page()
 
-        page.goto(url, wait_until="networkidle")
+        page.goto(url, timeout=60000)
 
         html = page.content()
 
         browser.close()
+
         return html
 
 
