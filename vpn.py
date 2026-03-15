@@ -16,5 +16,3 @@ def proxy(url):
 
     return Response(resp.content, resp.status_code, headers) #teoretycznie tego statuscode i headers mogłoby nie być ale lepiej jak jest
 
-if __name__ == '__main__':
-    app.run(port=5000)
